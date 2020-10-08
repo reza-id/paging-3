@@ -2,6 +2,7 @@ package dev.cianjur.pagging3.data
 
 import androidx.paging.PagingSource
 import dev.cianjur.pagging3.api.UnsplashApi
+import kotlinx.coroutines.delay
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -17,6 +18,7 @@ class UnsplashPagingSource(
 
         return try {
             val response = unsplashApi.searchPhotos(query, position, params.loadSize)
+            delay(2000)
             val photos = response.results
 
             LoadResult.Page(
