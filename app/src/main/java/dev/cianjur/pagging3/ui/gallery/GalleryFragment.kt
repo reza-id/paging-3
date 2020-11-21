@@ -1,6 +1,7 @@
 package dev.cianjur.pagging3.ui.gallery
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -47,13 +48,18 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
 
         adapter.addLoadStateListener { loadState ->
             binding.apply {
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
-                btnRetry.isVisible = loadState.source.refresh is LoadState.Error
-                tvError.isVisible = loadState.source.refresh is LoadState.Error
+                progressBar.isVisible = loadState.refresh is LoadState.Loading
+                recyclerView.isVisible = loadState.refresh is LoadState.NotLoading
+
+                if (loadState.refresh is LoadState.Error) {
+                    val error = loadState.refresh as LoadState.Error
+                    tvError.text = error.error.localizedMessage
+                }
+                btnRetry.isVisible = loadState.refresh is LoadState.Error
+                tvError.isVisible = loadState.refresh is LoadState.Error
 
                 // empty view
-                if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
+                if (loadState.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) {
                     recyclerView.isVisible = false
                     tvEmpty.isVisible = true
                 } else {

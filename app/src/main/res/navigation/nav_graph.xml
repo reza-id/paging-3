@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_details">
         <argument
             android:name="photo"
-            app:argType="dev.cianjur.pagging3.data.UnsplashPhoto" />
+            app:argType="dev.cianjur.pagging3.data.PhotoDb" />
     </fragment>
 </navigation>

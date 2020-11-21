@@ -1,5 +1,6 @@
 package dev.cianjur.pagging3.ui.gallery
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
@@ -22,6 +23,7 @@ class GalleryViewModel @ViewModelInject constructor(
     private val currentQuery = state.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
 
     val photos = currentQuery.switchMap { queryString ->
+        Log.e("REZAAA", "new query: $queryString")
         repository.getSearchResults(queryString).cachedIn(viewModelScope)
     }
 

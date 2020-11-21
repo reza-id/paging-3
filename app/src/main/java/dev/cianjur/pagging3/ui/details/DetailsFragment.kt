@@ -29,7 +29,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             val photo = args.photo
 
             Glide.with(this@DetailsFragment)
-                .load(photo.urls.full)
+                .load(photo.fullImageUrl)
                 .error(R.drawable.ic_error)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
@@ -59,11 +59,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
             textViewDescription.text = photo.description
 
-            val uri = Uri.parse(photo.user.attributionUrl)
+            val uri = Uri.parse(photo.attributionUrl)
             val intent = Intent(Intent.ACTION_VIEW, uri)
 
             textViewCreator.apply {
-                text = "Photo by ${photo.user.name} on Unsplash"
+                text = "Photo by ${photo.name} on Unsplash"
                 setOnClickListener {
                     context.startActivity(intent)
                 }
